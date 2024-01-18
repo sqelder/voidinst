@@ -17,10 +17,10 @@ cp -rfv "$SCDIR/etc" "$VDIR"
 [ -d "$SCDIR/etc/skel" ] && {
     rm -rf "$VDIR/etc/skel/.git"
 
-    # re-clone a bare copy of the repo
+    # re-clone a bare copy of the repo if git is installed
     chroot $VDIR which git && {
-        chroot $VDIR git clone --bare "$url" "$VDIR/etc/skel/.git"
-        chroot $VDIR sh -c 'cd /etc/skel/.git && git --git-dir=/etc/skel/.git config --bool core.bare false'
-        chroot $VDIR sh -c 'cd /etc/skel && git reset --hard'
+        chroot $VDIR git clone --bare "$url" "/etc/skel/.git"
+        chroot $VDIR sh -c 'cd /etc/skel/.git && git config --bool core.bare false'
+        chroot $VDIR sh -c 'cd /etc/skel && git reset --hard && git branch --set-upstream-to=origin/main'
     }
 }

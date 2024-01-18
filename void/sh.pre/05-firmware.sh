@@ -18,7 +18,7 @@ case "${nvidia_firmware:-$(chmenu "Do you want to install Nvidia firmware? (linu
               *) printf "${0##*/}: error: invalid operand $nvidia_firmware for option nvidia_firmware\n"; exit 1 ;;
 esac
 
-case "${network_firmware:-$(chmenu "Do you want to install network drivers? (linux-firmware-network)" "yes" "no")}" in
+case "${network_firmware:-$(chmenu "Do you want to install network firmware? (linux-firmware-network)" "yes" "no")}" in
     [yY]|[yY]es) export PACKAGES="${PACKAGES:+$PACKAGES }linux-firmware-network" ;;
      [nN]|[nN]o) ;;
               *) printf "${0##*/}: error: invalid operand $network_firmware for option network_firmware\n"; exit 1 ;;

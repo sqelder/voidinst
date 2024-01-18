@@ -7,12 +7,13 @@ case "$display_setup" in
     [nN]one)
         display_setup="none" ;;
     [wW]ayland*pure*)
+        [ "$install_dev_packages" = "y" ] && export PACKAGES="${PACKAGES:+$PACKAGES }wlroots-devel"
         export PACKAGES="${PACKAGES:+$PACKAGES }wayland mesa-dri vulkan-loader dbus seatd wlroots way-displays wl-clipboard"
         export DEFAULTGROUPS="${DEFAULTGROUPS:+$DEFAULTGROUPS,}_seatd"
-        [ "$install_dev_packages" = "y" ] && export PACKAGES="${PACKAGES:+$PACKAGES }wlroots-devel"
         export SERVICES="${SERVICES:+$SERVICES }dbus seatd"
         ;;
     [wW]ayland*compat*)
+        [ "$install_dev_packages" = "y" ] && export PACKAGES="${PACKAGES:+$PACKAGES }wlroots-devel"
         export PACKAGES="${PACKAGES:+$PACKAGES }wayland mesa-dri vulkan-loader dbus seatd wlroots way-displays wl-clipboard xorg-server-xwayland"
         export DEFAULTGROUPS="${DEFAULTGROUPS:+$DEFAULTGROUPS,}_seatd"
         export XORG="y"
