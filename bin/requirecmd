@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# print an error message for commands that aren't found
+
+while [ "$#" -gt 0 ]; do
+    for i in $1; do
+        command -v $1 >/dev/null 2>&1 || {
+            printf "${0##*/}: error: $1: command not found\n"
+            exit 1
+        }
+        shift
+    done
+done

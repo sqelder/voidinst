@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# script to prepare a disk for partitioning / unplugging
+
+# find mountpoints/swaps to clean for each partition
+for i in ${1}*; do
+    # store disk info
+    main_part="$i"
+    main_parts="$i${main_parts:+ $main_parts}"
+
+    # disable all swap partitions on the disk
+    [ -n "$(grep "$main_part " </proc/swaps | awk '{print $1; exit}')" ] && {
+        main_swaps="$main_part${main_swaps:+ $main_swaps}"
+    }
+
+    # unmount all filesystems on the disk
+    for j in $(grep "$main_part " </proc/mounts | awk '{print $2}'); do
+        main_mounts="$j${main_mounts:+ $main_mounts}"
+    done
+done
+
+# handle peripheral swaps/mounts
+for i in $main_mounts; do
+    # add peripheral mounts to the list
+    for j in $(grep "$i/*" </proc/mounts | awk '{print $2}'); do
+        main_mounts="$j${main_mounts:+ $main_mounts}"
+        main_parts="$(grep "$j " </proc/mounts | awk '{print $1; exit}')${main_parts:+ $main_parts}"
+    done
+
+    # add peripheral swapfiles to the list
+    for j in $(grep "$i/*" </proc/swaps | awk '{print $1}'); do
+        main_swaps="$j${main_swaps:+ $main_swaps}"
+    done
+done
+
+# sort by length, remove duplicate entries (this search method inevitably adds them)
+main_parts="$(for i in $main_parts; do printf "$i\n" | awk '{print length, $0}'; done | sort -rn | awk '{print $2}' | uniq)"
+main_mounts="$(for i in $main_mounts; do printf "$i\n" | awk '{print length, $0}'; done | sort -rn | awk '{print $2}' | uniq)"
+main_swaps="$(for i in $main_swaps; do printf "$i\n" | awk '{print length, $0}'; done | sort -rn | awk '{print $2}' | uniq)"
+
+# fix whitespace
+for i in $main_parts; do clean_parts="${clean_parts:+$clean_parts }$i"; done
+for i in $main_mounts; do clean_mounts="${clean_mounts:+$clean_mounts }$i"; done
+for i in $main_swaps; do clean_swaps="${clean_swaps:+$clean_swaps }$i"; done
+
+# if there are any swaps to disable, do this
+[ -n "$clean_swaps" ] && {
+    for i in $clean_swaps; do
+        printf "unswap $i\n"
+        swapoff $i || exit 1
+    done
+}
+
+# if there are any mountpoints to unmount, do this
+[ -n "$clean_mounts" ] && {
+    for i in $clean_mounts; do
+        printf "unmount $i\n"
+        umount -R $i || exit 1
+    done
+}
+
+# exit with success
+exit 0

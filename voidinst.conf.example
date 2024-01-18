@@ -1,0 +1,35 @@
+#!/bin/sh
+
+#libc="glibc"                                                                                    # glibc or musl
+#disk="/dev/sda"                                                                                 # disk to install void to
+#partitioning_mode="a"                                                                           # 'a' for automatic partitioning, 'm' for manual partitioning
+#partitioning_preset="efi+bios:gpt"                                                              # available presets are 'efi+bios:gpt' 'efi:gpt' 'bios:gpt' 'bios:mbr' (this should be self explanatory)
+#efipartsize="128"                                                                               # size for efi system partition, in megabytes
+#warn="n"                                                                                        # 'y' or 'n': whether or not autopartitioning requires user confirmation
+#root_password="1234"                                                                            # default root password
+#root_fs="ext4"                                                                                  # options: ext2, ext3, ext4, btrfs, xfs, f2fs
+#kernel_version="5.4"                                                                            # kernel release to use; check https://voidlinux.org/packages if changing versions
+#intel_firmware="y"                                                                              # 'y' or 'n': whether or not to install linux-firmware-intel
+#amd_firmware="y"                                                                                # 'y' or 'n': whether or not to install linux-firmware-amd
+#nvidia_firmware="y"                                                                             # 'y' or 'n': whether or not to install linux-firmware-nvidia
+#network_firmware="y"                                                                            # 'y' or 'n': whether or not to install linux-firmware-network
+#display_setup="wayland-pure"                                                                    # display server setup: wayland-pure, wayland-compat, x11, none
+#intel_gfxdrivers="y"                                                                            # 'y' or 'n': whether or not to install intel graphics drivers
+#amd_gfxdrivers="y"                                                                              # 'y' or 'n': whether or not to install amd graphics drivers
+#amd_gpu_driver="mesa-vulkan-radeon"                                                             # mesa-vulkan-radeon or amdvlk
+#nvidia_gfxdrivers="y"                                                                           # 'y' or 'n': whether or not to install nvidia graphics drivers
+#nvidia_gpu_driver="nouveau"                                                                     # nouveau, nvidia, nvidia470, or nvidia390
+#bootentry_name="Void Linux"                                                                     # name of the EFI bootloader entry (not applicable to BIOS installs)
+#language="en_US"                                                                                # language to generate glibc locales for
+#hostname="voidlinux"                                                                            # hostname of the system
+#enable_services="dhcpcd wpa_supplicant acpid"                                                   # which services should be enabled
+#create_user="y"                                                                                 # 'y' or 'n': whether or not to create an additional user
+#mk_users="1"                                                                                    # amount of custom users to create (if greater than the amount of users specified here, prompt in the script)
+#user1_name="user"                                                                               # the name of the additional user
+#user1_name_comment="User"                                                                       # the 'full name'; displayed in graphical DMs and such
+#user1_password="1234"                                                                           # the password of the additional user
+#user1_groups="wheel,tty,disk,lp,audio,video,cdrom,optical,storage,network,input,users"          # the groups to place the additional user in
+#install_user_packages="y"                                                                       # 'y' or 'n': whether to skip or install custom packages
+#install_dev_packages="y"                                                                        # whether or not to install development packages
+#dev_packages="base-devel git github-cli"                                                        # optionally specify a custom list of dev packages overriding the default (base-devel git github-cli)
+#user_packages="zsh htop lf elinks gnupg pass fzf neomutt"                                       # optionally specify a list of additional packages (eg. userland applications) to install

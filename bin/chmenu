@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# print a menu and allow the user to choose between its items
+
+# print a title
+printf "\n\033[1m$1\033[22m\n" >&2
+
+# we don't need the title arg anymore, shift past it
+shift
+
+# initialize itm to 0
+itm="0"
+
+# create list entries for each subsequent argument
+while [ "$#" -gt 0 ]; do
+    itm=$((itm+1))
+    eval "itm$itm=\"$1\""
+    shift
+done
+
+# print each choice provided in arguments
+for i in $(seq 1 $itm); do
+    # print the menu item and its ID
+    eval "printf \"\033[1m[\033[36m$i\033[39m]\033[22m \$itm$i\"" >&2
+
+    # print additional disk information if the item corresponds to a block device
+    eval "[ -b \"\$itm$i\" ] && printf \": \$(eval "lsblk -ndo size,model \$itm$i")\"" >&2
+
+    # print a newline
+    printf "\n" >&2
+done
+
+# read the user's choice
+while true; do
+    # print the prompt
+    printf "\033[1mEnter your choice [\033[36m1\033[39m-\033[36m$i\033[39m]\033[22m " >&2
+
+    # read input
+    read inum
+
+    # if the user's input is a number between 1 and the number of menu items, break the loop
+    [ $inum -gt 0 >&- 2>&- ] && {
+        [ $inum -le $itm >&- 2>&- ] && break
+    }
+
+    # this loop will continue until it recieves a valid number
+done
+
+# print the item the user chose
+eval "printf \"\$itm$inum\""
