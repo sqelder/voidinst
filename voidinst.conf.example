@@ -13,6 +13,7 @@
 #amd_firmware="y"                                                                                # 'y' or 'n': whether or not to install linux-firmware-amd
 #nvidia_firmware="y"                                                                             # 'y' or 'n': whether or not to install linux-firmware-nvidia
 #network_firmware="y"                                                                            # 'y' or 'n': whether or not to install linux-firmware-network
+#audio_setup="pipewire"                                                                          # alsa, pipewire, pulseaudio, sndio, none
 #display_setup="wayland-pure"                                                                    # display server setup: wayland-pure, wayland-compat, x11, none
 #intel_gfxdrivers="y"                                                                            # 'y' or 'n': whether or not to install intel graphics drivers
 #amd_gfxdrivers="y"                                                                              # 'y' or 'n': whether or not to install amd graphics drivers

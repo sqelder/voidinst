@@ -8,20 +8,20 @@ case "$display_setup" in
         display_setup="none" ;;
     [wW]ayland*pure*)
         [ "$install_dev_packages" = "y" ] && export PACKAGES="${PACKAGES:+$PACKAGES }wlroots-devel"
-        export PACKAGES="${PACKAGES:+$PACKAGES }wayland mesa-dri vulkan-loader dbus seatd wlroots way-displays wl-clipboard"
+        export PACKAGES="${PACKAGES:+$PACKAGES }wayland mesa-dri vulkan-loader dbus seatd wlroots way-displays wl-clipboard xdg-utils"
         export DEFAULTGROUPS="${DEFAULTGROUPS:+$DEFAULTGROUPS,}_seatd"
         export SERVICES="${SERVICES:+$SERVICES }dbus seatd"
         ;;
     [wW]ayland*compat*)
         [ "$install_dev_packages" = "y" ] && export PACKAGES="${PACKAGES:+$PACKAGES }wlroots-devel"
-        export PACKAGES="${PACKAGES:+$PACKAGES }wayland mesa-dri vulkan-loader dbus seatd wlroots way-displays wl-clipboard xorg-server-xwayland"
+        export PACKAGES="${PACKAGES:+$PACKAGES }wayland mesa-dri vulkan-loader dbus seatd wlroots way-displays wl-clipboard xorg-server-xwayland xdg-utils"
         export DEFAULTGROUPS="${DEFAULTGROUPS:+$DEFAULTGROUPS,}_seatd"
         export XORG="y"
         export SERVICES="${SERVICES:+$SERVICES }dbus seatd"
         ;;
     [xX]11|[xX]org)
         export XORG="y"
-        export PACKAGES="${PACKAGES:+$PACKAGES }mesa-dri vulkan-loader dbus xorg-server xbacklight xclip xdpyinfo xinit xinput xkbutils xprop xrandr xrdb xset xsetroot xf86-input-evdev xf86-input-libinput xf86-input-synaptics libX11 libXft libXcursor libXinerama"
+        export PACKAGES="${PACKAGES:+$PACKAGES }mesa-dri vulkan-loader dbus xorg-server xbacklight xclip xdpyinfo xinit xinput xkbutils xprop xrandr xrdb xset xsetroot xf86-input-evdev xf86-input-libinput xf86-input-synaptics libX11 libXft libXcursor libXinerama xdg-utils"
         [ "$install_dev_packages" = "y" ] && export PACKAGES="${PACKAGES:+$PACKAGES }libX11-devel libXft-devel libXinerama-devel libXcursor-devel"
         export SERVICES="${SERVICES:+$SERVICES }dbus"
         ;;
