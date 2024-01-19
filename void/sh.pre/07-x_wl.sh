@@ -1,6 +1,6 @@
 #!/bin/sh
 
-display_setup="${display_setup:-$(chmenu "Which display server would you like to use?" "None" "Wayland (pure)" "Wayland (X11 compatibility)" "X11")}"
+display_setup="${display_setup:-$(chmenu "Which display setup should be installed?" "None" "Wayland (pure)" "Wayland (X11 compatibility)" "X11")}"
 
 # install graphics
 case "$display_setup" in

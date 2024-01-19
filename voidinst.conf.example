@@ -23,6 +23,7 @@
 #language="en_US"                                                                                # language to generate glibc locales for
 #hostname="voidlinux"                                                                            # hostname of the system
 #enable_services="dhcpcd wpa_supplicant acpid"                                                   # which services should be enabled
+#install_tlp="y"                                                                                 # whether or not to install 'tlp' for power saving on laptops
 #create_user="y"                                                                                 # 'y' or 'n': whether or not to create an additional user
 #mk_users="1"                                                                                    # amount of custom users to create (if greater than the amount of users specified here, prompt in the script)
 #user1_name="user"                                                                               # the name of the additional user
