@@ -1,11 +1,10 @@
 #!/bin/sh
 
-display_setup="${display_setup:-$(chmenu "Which display setup should be installed?" "None" "Wayland (pure)" "Wayland (X11 compatibility)" "X11")}"
-
 # install graphics
-case "$display_setup" in
-    [nN]one)
-        display_setup="none" ;;
+case "${display_setup:-$(chmenu "Which display setup should be installed?" "None" "Wayland (pure)" "Wayland (X11 compatibility)" "X11")}" in
+    [nN]|[nN]one)
+        return
+        ;;
     [wW]ayland*pure*)
         [ "$install_dev_packages" = "y" ] && export PACKAGES="${PACKAGES:+$PACKAGES }wlroots-devel"
         export PACKAGES="${PACKAGES:+$PACKAGES }wayland mesa-dri vulkan-loader dbus seatd wlroots way-displays wl-clipboard xdg-utils"
@@ -13,8 +12,8 @@ case "$display_setup" in
         export SERVICES="${SERVICES:+$SERVICES }dbus seatd"
         ;;
     [wW]ayland*compat*)
-        [ "$install_dev_packages" = "y" ] && export PACKAGES="${PACKAGES:+$PACKAGES }wlroots-devel"
-        export PACKAGES="${PACKAGES:+$PACKAGES }wayland mesa-dri vulkan-loader dbus seatd wlroots way-displays wl-clipboard xorg-server-xwayland xdg-utils"
+        [ "$install_dev_packages" = "y" ] && export PACKAGES="${PACKAGES:+$PACKAGES }wlroots-devel libX11-devel libXft-devel libXinerama-devel libXcursor-devel"
+        export PACKAGES="${PACKAGES:+$PACKAGES }wayland mesa-dri vulkan-loader dbus seatd wlroots way-displays wl-clipboard xorg-server-xwayland xdg-utils xbacklight xclip xdpyinfo xinit xinput xkbutils xprop xrandr xrdb xset xsetroot xf86-input-evdev xf86-input-libinput xf86-input-synaptics libX11 libXft libXcursor libXinerama"
         export DEFAULTGROUPS="${DEFAULTGROUPS:+$DEFAULTGROUPS,}_seatd"
         export XORG="y"
         export SERVICES="${SERVICES:+$SERVICES }dbus seatd"
@@ -26,11 +25,6 @@ case "$display_setup" in
         export SERVICES="${SERVICES:+$SERVICES }dbus"
         ;;
     *) printf "${0##*/}: error: invalid operand $display_setup to option display_setup\n"; exit 1 ;;
-esac
-
-# skip gfx driver installation if not setting up a display server
-case "$display_setup" in
-    none) return ;;
 esac
 
 # intel graphics drivers

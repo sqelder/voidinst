@@ -68,12 +68,6 @@ done
 
 # automatic partitioning
 [ "$partitioning_mode" = "a" ] && {
-    # get the disk preset from the user if not supplied
-    case "$partitioning_preset" in
-        efi+bios:gpt|bios+efi:gpt|both:gpt|bios:gpt|bios:mbr|efi:gpt) ;;
-        *) partitioning_preset="$(chmenu 'Which boot layout preset would you like to use?' "efi+bios:gpt" "efi:gpt" "bios:gpt" "bios:mbr")" ;;
-    esac
-
     # ensure we have the commands required for partitioning
     requirecmd mkfs.$root_fs
 
